@@ -1,6 +1,7 @@
 .card-img-wrapper{
     overflow: hidden;
     position: relative;
+    max-height: 250px;
 }
 
 .card:hover img{
