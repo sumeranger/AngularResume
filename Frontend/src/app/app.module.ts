@@ -10,6 +10,7 @@ import { HousingService } from './services/housing.service';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
 import { Routes,RouterModule } from "@angular/router";
 import { PropertyDetailComponent } from './property/property-detail/property-detail.component';
+import { FormsModule } from "@angular/forms";
 
 const appRoute : Routes = [
   {path:'', component:PropertyListComponent},
@@ -31,7 +32,8 @@ const appRoute : Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoute)
+    RouterModule.forRoot(appRoute),
+    FormsModule
   ],
   providers: [
     HousingService
