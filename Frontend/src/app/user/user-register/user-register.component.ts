@@ -45,7 +45,6 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.registerationForm);
     this.userSubmitted = true;
     if(this.registerationForm.valid){
       // this.user = Object.assign(this.user, this.registerationForm.value);
