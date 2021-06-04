@@ -3,6 +3,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    // "paths": {
+    //   "alertify": ["node_modules/alertifyjs/build"] // This mapping is relative to "baseUrl"
+    // },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
