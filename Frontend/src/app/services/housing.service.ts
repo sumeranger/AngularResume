@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
 import { IPropertyBase } from '../model/IPropertybase';
+import { Property } from '../model/property';
 
 @Injectable({
   providedIn: 'root'
@@ -27,20 +28,9 @@ export class HousingService {
       })
     );
   }
-  // getAllProperties() : Observable<IProperty[]>{
-  //   return this.http.get('data/properties.json').pipe(
-  //     map(data=>{
-  //       const propetiesArray : Array<IProperty> = [];
-  //       for (const id in data) {
-  //         if(data.hasOwnProperty(id))
-  //         {
-  //           propetiesArray.push(data[id]);
-  //         }
-  //       }
-        
-  //       return propetiesArray;
-  //     })
-  //   )
-  // }
+  
+  addNewProperty(property : Property){
+    localStorage.setItem('newProp', JSON.stringify(property));
+  }
 }
 
