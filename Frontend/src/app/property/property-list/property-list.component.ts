@@ -12,6 +12,10 @@ export class PropertyListComponent implements OnInit{
 
   SellRent = 1;
   properties: Array<IPropertyBase> = [];
+  city = '';
+  searchCity = '';
+  sortByParam = '';
+  sortDirection = 'asc';
 
   constructor(private route : ActivatedRoute, private housingServices:HousingService){}
 
@@ -28,5 +32,22 @@ export class PropertyListComponent implements OnInit{
         console.log(error);
       }
     );
+  }
+
+  OnCityFilter(){
+    this.searchCity = this.city;
+  }
+
+  OnCityClearFilter(){
+    this.searchCity = '';
+    this.city = '';
+  }
+
+  OnSortDirection(){
+    if(this.sortDirection === 'desc'){
+      this.sortDirection = 'asc';
+    }else{
+      this.sortDirection = 'desc';
+    }
   }
 }
