@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "angularresume-p"
+  },
+  "targets": {
+    "angularresume-p": {
+      "hosting": {
+        "Frontend": [
+          "angularresume-p"
+        ]
+      }
+    }
+  }
+}
