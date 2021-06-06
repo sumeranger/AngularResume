@@ -1,0 +1,10 @@
+ .card-img-wrapper{
+    overflow: hidden;
+    max-height: 300px;
+    position: relative;
+}  
+
+.card img{
+    /* width: auto; */
+    padding: 10px;
+}
