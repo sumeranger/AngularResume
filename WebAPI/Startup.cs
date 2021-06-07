@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using WebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
 {
@@ -26,6 +28,8 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<DataContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddControllers();
             services.AddCors();
             services.AddSwaggerGen(c =>
