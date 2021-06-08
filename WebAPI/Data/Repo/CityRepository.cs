@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Models;
+using WebAPI.interfaces;
 
 namespace WebAPI.Data.Repo
 {
@@ -27,12 +28,6 @@ namespace WebAPI.Data.Repo
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
             return await dc.Cities.ToListAsync();
-        }
-
-        public async Task<bool> SaveAsync()
-        {
-            // should be unit of work pattern
-            return await dc.SaveChangesAsync() > 0;
         }
     }
 }
