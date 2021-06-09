@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WebAPI.Data;
 using WebAPI.interfaces;
+using WebAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
@@ -27,6 +28,7 @@ namespace WebAPI
             options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddControllers();
             services.AddCors();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddSwaggerGen(c =>
             {

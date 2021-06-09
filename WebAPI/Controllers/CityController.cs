@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
 using WebAPI.interfaces;
 using WebAPI.Dtos;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace WebAPI.Controllers
 {
@@ -13,9 +15,11 @@ namespace WebAPI.Controllers
     public class CityController : ControllerBase
     {
         private readonly IUnitOfWork uow;
+        private readonly IMapper mapper;
 
-        public CityController(IUnitOfWork uow)
+        public CityController(IUnitOfWork uow, IMapper mapper)
         {
+            this.mapper = mapper;
             this.uow = uow;
         }
 
@@ -23,11 +27,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetCities()
         {
             var cities = await uow.CityRepository.GetCitiesAsync();
-            var citiesDto = from c in cities
-                            select new CityDto(){
-                                Id = c.Id,
-                                Name = c.Name
-                            };
+            var citiesDto = mapper.Map<IEnumerable<CityDto>>(cities);
             return Ok(citiesDto);
         }
 
@@ -45,11 +45,9 @@ namespace WebAPI.Controllers
         [HttpPost("post")]
         public async Task<IActionResult> AddCity(CityDto cityDto)
         {
-            var city = new City{
-                Name = cityDto.Name,
-                LastUpdateBy = 1,
-                LastUpdateOn = DateTime.Now
-            };
+            var city = mapper.Map<City>(cityDto);
+            city.LastUpdateBy = 1;
+            city.LastUpdateOn = DateTime.Now;
 
             uow.CityRepository.AddCity(city);
             await uow.SaveAsync();
