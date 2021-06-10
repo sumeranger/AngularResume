@@ -32,7 +32,7 @@ namespace WebAPI.Middlewares
         {
             ApiError response;
             HttpStatusCode statuscode = HttpStatusCode.InternalServerError;
-            string message;
+            String message;
             var exceptionType = ex.GetType();
             if(exceptionType ==  typeof(UnauthorizedAccessException))
             {

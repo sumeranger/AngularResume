@@ -18,4 +18,5 @@ ASP.NET, Postman, SQL Server, Entity framework
 -Data transfer object(DTO)  
 -Automapper  
 -input validation & error handling  
-Doing >>> Security(JSON Web Token)
+-Security(JSON Web Token)  
+Doing >>> secret key & password

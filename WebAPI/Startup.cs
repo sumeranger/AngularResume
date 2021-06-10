@@ -9,6 +9,9 @@ using WebAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Exceptions;
 using WebAPI.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebAPI
 {
@@ -31,6 +34,19 @@ namespace WebAPI
             services.AddCors();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            var secretKey = Configuration.GetSection("AppSettings:Key").Value;
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt => {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = key
+                };
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
@@ -41,11 +57,13 @@ namespace WebAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // app.ConfigureBuiltinExceptionHandler(env);
-            app.ConfigureExceptionHandler(env);    
+            app.ConfigureExceptionHandler(env);  
+            // app.UseMiddleware<ExceptionMiddleware>();  
 
             app.UseRouting();
 
             app.UseCors(m=>m.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

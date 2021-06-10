@@ -8,11 +8,11 @@ using WebAPI.Dtos;
 using AutoMapper;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.JsonPatch;
-using System.Net;
-using Microsoft.AspNetCore.Server.IIS;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     public class CityController : BaseController
     {
         private readonly IUnitOfWork uow;
@@ -24,10 +24,11 @@ namespace WebAPI.Controllers
             this.uow = uow;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetCities()
         {
-            // throw new UnauthorizedAccessException("unaythorized");
+            // throw new UnauthorizedAccessException();
             var cities = await uow.CityRepository.GetCitiesAsync();
             var citiesDto = mapper.Map<IEnumerable<CityDto>>(cities);
             return Ok(citiesDto);
