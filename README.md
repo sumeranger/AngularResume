@@ -16,4 +16,6 @@ ASP.NET, Postman, SQL Server, Entity framework
 -Repository Pattern  
 -Unit Of Work pattern  
 -Data transfer object(DTO)  
-Doing >>> Automapper
+-Automapper  
+-input validation & error handling  
+Doing >>> Security

@@ -8,6 +8,8 @@ using WebAPI.Dtos;
 using AutoMapper;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.JsonPatch;
+using System.Net;
+using Microsoft.AspNetCore.Server.IIS;
 
 namespace WebAPI.Controllers
 {
@@ -27,6 +29,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCities()
         {
+            // throw new UnauthorizedAccessException("unaythorized");
             var cities = await uow.CityRepository.GetCitiesAsync();
             var citiesDto = mapper.Map<IEnumerable<CityDto>>(cities);
             return Ok(citiesDto);
@@ -58,12 +61,19 @@ namespace WebAPI.Controllers
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateCity(int id, CityDto cityDto)
         {
+            if(id != cityDto.Id)
+            return BadRequest("Update not allowed");
+
             var cityFromDb = await uow.CityRepository.FindCity(id);
+            if(cityFromDb == null){
+                return BadRequest("Update not allowed");
+            }
             cityFromDb.LastUpdateBy = 1;
             cityFromDb.LastUpdateOn = DateTime.Now;
             mapper.Map(cityDto, cityFromDb);
+            // throw new Exception("WTF is error");
             await uow.SaveAsync();
-            return StatusCode(200);
+            return StatusCode(200);       
         }
 
         [HttpPatch("update/{id}")]
