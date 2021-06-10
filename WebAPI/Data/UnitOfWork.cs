@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using WebAPI.interfaces;
 using WebAPI.Data.Repo;
+using WebAPI.Repo;
 
 namespace WebAPI.Data
 {
@@ -13,6 +14,8 @@ namespace WebAPI.Data
             this.dc = dc;
         }
         public ICityRepository CityRepository => new CityRepository(dc);
+
+        public IUserRepository UserRepository => new UserRepository(dc);
 
         public async Task<bool> SaveAsync()
         {
