@@ -20,4 +20,5 @@ ASP.NET, Postman, SQL Server, Entity framework
 - [x] Automapper  
 - [x] Input validation & error handling  
 - [x] Security(JSON Web Token)  
-- [ ] Secret key & password hashing
+- [x] Secret key & password with hashing and salting  
+- [ ] Deploy API on Azure
