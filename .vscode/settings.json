@@ -1,4 +1,8 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/73272dca-6341-4427-a16c-4dc41339aa92/resourceGroups/HSPA/providers/Microsoft.Web/sites/RentSell",
-    "appService.deploySubpath": "WebAPI\\bin\\Release\\netcoreapp3.1\\publish"
+    "appService.deploySubpath": "WebAPI\\bin\\Release\\netcoreapp3.1\\publish",
+    "eslint.workingDirectories": [
+        "WebAPI",
+        "Frontend"
+    ]
 }

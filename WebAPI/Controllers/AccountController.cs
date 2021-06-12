@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using WebAPI.Dtos;
 using WebAPI.interfaces;
 using WebAPI.Models;
+using WebAPI.Errors;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
@@ -28,9 +29,13 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Login(LoginReqDto loginReq)
         {
             var user = await uow.UserRepository.Authenticate(loginReq.Username, loginReq.Password);
+            ApiError apiError = new ApiError();
             if (user == null)
             {
-                return Unauthorized("Invalid User Id or Password");
+                apiError.ErrorCode = Unauthorized().StatusCode;
+                apiError.ErrorMessage = "Invalid User Id or Password";
+                apiError.ErrorDetails = "This error appear when provided user id or password does not exist";
+                return Unauthorized(apiError);
             }
 
             var loginRes = new LoginResDto();
@@ -43,12 +48,28 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(LoginReqDto loginReq)
         {
-            if(await uow.UserRepository.UserAlreadyExist(loginReq.Username))
-                return BadRequest("User already exists");
+            
+            ApiError apiError = new ApiError();
+            if(String.IsNullOrEmpty(loginReq.Username) || String.IsNullOrEmpty(loginReq.Password)){
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Username and password field are required.";
+                return BadRequest(apiError);
+            }
+
+            if(await uow.UserRepository.UserAlreadyExist(loginReq.Username)){
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User already exists, please try different user name.";
+                return BadRequest(apiError);
+            }
             uow.UserRepository.Register(loginReq.Username, loginReq.Password);
             await uow.SaveAsync();
             return StatusCode(201);
         }
+
+        // private bool UsernameAndPasswordIsNull(LoginReqDto loginReq)
+        // {
+        //     return String.IsNullOrEmpty(loginReq.Username) || String.IsNullOrEmpty(loginReq.Password);
+        // }
 
         private string CreateJTW(User user)
         {

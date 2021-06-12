@@ -29,9 +29,6 @@ export class UserLoginComponent implements OnInit {
         localStorage.setItem('username', user.username);
         this.alertify.success('Login Successful');
         this.router.navigate(['/']);
-      }, error => {
-        console.log(error);
-        this.alertify.error(error.error);
       }
     );
   }
