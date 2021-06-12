@@ -9,12 +9,11 @@ import { PropertyCardComponent } from './property/property-card/property-card.co
 import { HttpClientModule } from "@angular/common/http";
 import { HousingService } from './services/housing.service';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
-import { Routes,RouterModule } from "@angular/router";
+import { Routes, RouterModule } from "@angular/router";
 import { PropertyDetailComponent } from './property/property-detail/property-detail.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
-import { UserServiceService } from './services/user-service.service';
 import { AlertifyService } from './services/alertify.service';
 import { AuthService } from './services/auth.service';
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
@@ -26,16 +25,18 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 
-const appRoute : Routes = [
-  {path:'', component:PropertyListComponent},
-  {path:'rent-property', component:PropertyListComponent},
-  {path:'add-property', component: AddPropertyComponent},
-  {path:'property-detail/:id', 
-        component: PropertyDetailComponent, 
-        resolve:{prp:PropertyDetailResolverService}},
-  {path:'user/login', component: UserLoginComponent},
-  {path:'user/register', component: UserRegisterComponent},
-  {path:'**', component:PropertyListComponent}
+const appRoute: Routes = [
+  { path: '', component: PropertyListComponent },
+  { path: 'rent-property', component: PropertyListComponent },
+  { path: 'add-property', component: AddPropertyComponent },
+  {
+    path: 'property-detail/:id',
+    component: PropertyDetailComponent,
+    resolve: { prp: PropertyDetailResolverService }
+  },
+  { path: 'user/login', component: UserLoginComponent },
+  { path: 'user/register', component: UserRegisterComponent },
+  { path: '**', component: PropertyListComponent }
 ]
 
 @NgModule({
@@ -66,7 +67,6 @@ const appRoute : Routes = [
   ],
   providers: [
     HousingService,
-    UserServiceService,
     AlertifyService,
     AuthService,
     PropertyDetailResolverService
