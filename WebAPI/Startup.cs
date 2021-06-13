@@ -7,7 +7,7 @@ using WebAPI.Data;
 using WebAPI.interfaces;
 using WebAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Exceptions;
+using WebAPI.Extensions;
 using WebAPI.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

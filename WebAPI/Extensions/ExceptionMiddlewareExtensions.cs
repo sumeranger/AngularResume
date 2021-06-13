@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using WebAPI.Middlewares;
 
-namespace WebAPI.Exceptions
+namespace WebAPI.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {

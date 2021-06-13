@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
 using WebAPI.interfaces;
 using WebAPI.Dtos;
+using WebAPI.Errors;
 using AutoMapper;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.JsonPatch;
@@ -60,19 +61,30 @@ namespace WebAPI.Controllers
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateCity(int id, CityDto cityDto)
         {
-            if(id != cityDto.Id)
-            return BadRequest("Update not allowed");
+            ApiError apiError = new ApiError();
+
+            if (id != cityDto.Id)
+            {
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Update not allowed.";
+                apiError.ErrorDetails = "Id is not matched.";
+                return BadRequest(apiError);
+            }
 
             var cityFromDb = await uow.CityRepository.FindCity(id);
-            if(cityFromDb == null){
-                return BadRequest("Update not allowed");
+            if (cityFromDb == null)
+            {
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Update not allowed.";
+                apiError.ErrorDetails = "The city can't be found";
+                return BadRequest(apiError);
             }
             cityFromDb.LastUpdateBy = 1;
             cityFromDb.LastUpdateOn = DateTime.Now;
             mapper.Map(cityDto, cityFromDb);
             // throw new Exception("WTF is error");
             await uow.SaveAsync();
-            return StatusCode(200);       
+            return StatusCode(200);
         }
 
         [HttpPatch("update/{id}")]
@@ -81,7 +93,7 @@ namespace WebAPI.Controllers
             var cityFromDb = await uow.CityRepository.FindCity(id);
             cityFromDb.LastUpdateBy = 1;
             cityFromDb.LastUpdateOn = DateTime.Now;
-            
+
             cityToPatch.ApplyTo(cityFromDb, ModelState);
             await uow.SaveAsync();
             return StatusCode(200);

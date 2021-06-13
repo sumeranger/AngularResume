@@ -7,6 +7,7 @@ using WebAPI.Dtos;
 using WebAPI.interfaces;
 using WebAPI.Models;
 using WebAPI.Errors;
+using WebAPI.Extensions;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
@@ -48,11 +49,11 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(LoginReqDto loginReq)
         {
-            
             ApiError apiError = new ApiError();
-            if(String.IsNullOrEmpty(loginReq.Username) || String.IsNullOrEmpty(loginReq.Password)){
+            if(loginReq.Username.IsEmpty() || 
+               loginReq.Password.IsEmpty()){
                 apiError.ErrorCode = BadRequest().StatusCode;
-                apiError.ErrorMessage = "Username and password field are required.";
+                apiError.ErrorMessage = "Username or password field can not be blank.";
                 return BadRequest(apiError);
             }
 
