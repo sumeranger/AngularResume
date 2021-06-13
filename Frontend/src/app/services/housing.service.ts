@@ -11,68 +11,53 @@ import { environment } from "../../environments/environment";
 export class HousingService {
 
   baseUrl = environment.baseUrl;
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getAllCiies() : Observable<string[]>{
+  getAllCiies(): Observable<string[]> {
     return this.http.get<string[]>(this.baseUrl + '/city/cities');
   }
 
-  getProperty(id:number){
-    return this.getAllProperties().pipe(
-      map(propertiesArray => {
-        return propertiesArray.find(p =>p.Id === id);
-      })
-    );
+  getProperty(id: number) {
+    return this.http.get<Property>(this.baseUrl + '/property/detail/' + id.toString());
   }
 
-  getAllProperties(SellRent?: number): Observable<Property[]>{
-    return this.http.get('data/properties.json').pipe(
-      map(data => {
-        // const jsonData = JSON.stringify(data)
-        // const propertiesArray: Array<IProperty> = JSON.parse(jsonData);;
-        const propertiesArray : Array<Property> = [];
-        const localProperty = JSON.parse(localStorage.getItem('newProp'));
-        if(localProperty){
-          for (const id in localProperty) {
-            if(SellRent){
-              if (localProperty.hasOwnProperty(id) && localProperty[id].SellRent === SellRent) {
-                propertiesArray.push(localProperty[id]);
-              }
-            }else{
-              propertiesArray.push(localProperty[id]);
-            }
-          }
-        }
-        for (const id in data) {
-          if(SellRent){
-            if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
-              propertiesArray.push(data[id]);
-            }
-          }else{
-            propertiesArray.push(data[id]);
-          }
-        }
-
-        return propertiesArray;
-      })
-    );
-
-    return this.http.get<Property[]>('data/properties.json');
+  getAllProperties(SellRent?: number): Observable<Property[]> {
+    return this.http.get<Property[]>(this.baseUrl + '/property/list/' + SellRent.toString());
   }
-  
-  addNewProperty(property : Property){
+
+  addNewProperty(property: Property) {
     let newProp = [property];
-    if(localStorage.getItem('newProp')){
-      newProp = [property,...JSON.parse(localStorage.getItem('newProp'))];
+    if (localStorage.getItem('newProp')) {
+      newProp = [property, ...JSON.parse(localStorage.getItem('newProp'))];
     }
     localStorage.setItem('newProp', JSON.stringify(newProp));
   }
 
-  newPropID(){
-    if(localStorage.getItem('PID')){
-      localStorage.setItem('PID', String(localStorage.getItem('PID')+1));
+  getPropertyAge(dateOfEstablishment: Date): string {
+    const today = new Date();
+    const estDate = new Date(dateOfEstablishment);
+    let age = today.getFullYear() - estDate.getFullYear();
+    const m = today.getMonth() - estDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < estDate.getDate())) {
+      age--;
+    }
+
+    if (today < estDate) {
+      return '0';
+    }
+
+    if (age === 0) {
+      return "Less than a year";
+    }
+    return age.toString();
+  }
+
+  newPropID() {
+    if (localStorage.getItem('PID')) {
+      localStorage.setItem('PID', String(localStorage.getItem('PID') + 1));
       return +localStorage.getItem('PID');
-    }else{
+    } else {
       localStorage.setItem('PID', '101');
       return 101;
     }

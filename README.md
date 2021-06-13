@@ -1,6 +1,6 @@
 # Rent & Sell Property   
 [Web Page](https://angularresume-p.web.app/)  
-*Web project to practice in 14 days (5/31~6/13)*
+*Web project to practice in 30 days (5/31 ~ )*
 ## Frontend  
 Angular (v12.0.2), Bootstrap (v5.0.1), alertify, ngx-bootstrap
 ### Functionality
@@ -12,17 +12,16 @@ Angular (v12.0.2), Bootstrap (v5.0.1), alertify, ngx-bootstrap
 ## Backend  
 ASP.NET, Postman, SQL Server, Entity framework  
 
-- [x] Asynchronous  
-- [x] Code First  
 - [x] Repository Pattern  
 - [x] Unit Of Work pattern  
 - [x] Data transfer object(DTO)  
 - [x] Automapper  
-- [x] Input validation & error handling  
-- [x] Security(JSON Web Token)  
+- [x] Input validation & global error handler  
+- [x] JSON Web Token  
 - [x] Secret key & password with hashing and salting  
 - [x] Deploy API on Azure
 - [ ] Deploy API on IIS
 - [ ] Hookup Frontend to WebAPI
   - [x] register&login
-  - [ ] add property 
+  - [x] property detail 
+  - [x] property list

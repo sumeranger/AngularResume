@@ -12,11 +12,13 @@
     <button type="button" (click)="OnSortDirection()">
         <i *ngIf="sortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
         <i *ngIf="sortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
-    </button>    
+    </button>
 </div>
 
 <div class="row">
-    <div *ngFor="let property of properties|filter:searchCity:'City'|sort:[sortByParam,sortDirection]" class="col-sm-3 shadow-lg rounded">
-        <app-property-card [property]="property" [hideIcon]="false"></app-property-card>
+    <div *ngFor="let property of properties|filter:searchCity:'City'|sort:[sortByParam,sortDirection]" class="col-sm-4">
+        <div class="shadow-lg p-3 mb-4">
+            <app-property-card [property]="property" [hideIcon]="false"></app-property-card>
+        </div>
     </div>
 </div>

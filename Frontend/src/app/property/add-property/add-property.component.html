@@ -12,10 +12,10 @@
                 <div class="form-group row mb-3 mt-3">
                   <p>I want to</p>
                   <div class="btn-group" btnRadioGroup formControlName="SellRent" required>
-                    <label class="btn btn-outline-primary mr-2"
-                    btnRadio=1 tabindex="0" role="button" name="SellRent">Sell</label>
-                    <label class="btn btn-outline-primary"
-                    btnRadio=2  tabindex="0" role="button" name="SellRent">Rent</label>
+                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button"
+                      name="SellRent">Sell</label>
+                    <label class="btn btn-outline-primary" btnRadio=2 tabindex="0" role="button"
+                      name="SellRent">Rent</label>
                   </div>
                   <div class="error-block" *ngIf="SellRent.invalid && nextClicked">
                     Please select sell or rent
@@ -23,9 +23,9 @@
                 </div>
                 <div class="form-group row mb-3 mt-3">
                   <p>BHK</p>
-                  <div class="btn-group" btnRadioGroup formControlName="BHK" [(ngModel)]="propertyView.BHK">
-                    <label *ngFor="let bhk of [1,2,3,4]" class="btn btn-outline-primary mr-2" 
-                    [btnRadio]="bhk.toString()" tabindex="0" role="button" name="SellRent">{{bhk}}</label>
+                  <div class="btn-group" btnRadioGroup formControlName="BHK" [(ngModel)]="propertyView.bhk">
+                    <label *ngFor="let bhk of [1,2,3,4]" class="btn btn-outline-primary mr-2"
+                      [btnRadio]="bhk.toString()" tabindex="0" role="button" name="SellRent">{{bhk}}</label>
                   </div>
                   <div class="error-block" *ngIf="BHK.invalid && nextClicked">
                     Please select BHK
@@ -33,9 +33,9 @@
                 </div>
                 <div class="form-group row mb-3 mt-3">
                   <p>Property type</p>
-                  <div class="btn-group" btnRadioGroup formControlName="PType" [(ngModel)]="propertyView.PType">
-                    <label *ngFor="let ptype of propertiesTypes" class="btn btn-outline-primary mr-2" 
-                    [btnRadio]="ptype" tabindex="0" role="button" name="propType">{{ptype}}</label>
+                  <div class="btn-group" btnRadioGroup formControlName="PType" [(ngModel)]="propertyView.propertyType">
+                    <label *ngFor="let ptype of propertiesTypes" class="btn btn-outline-primary mr-2" [btnRadio]="ptype"
+                      tabindex="0" role="button" name="propType">{{ptype}}</label>
                   </div>
                   <div class="error-block" *ngIf="PType.invalid && nextClicked">
                     Please select property type
@@ -43,9 +43,10 @@
                 </div>
                 <div class="form-group row mb-3 mt-3">
                   <p>Furnishing type</p>
-                  <div class="btn-group" btnRadioGroup formControlName="FType" [(ngModel)]="propertyView.FType">
-                    <label *ngFor="let ftype of furnishTypes" class="btn btn-outline-primary mr-2" 
-                    [btnRadio]="ftype" tabindex="0" role="button" name="SellRent">{{ftype}}</label>
+                  <div class="btn-group" btnRadioGroup formControlName="FType"
+                    [(ngModel)]="propertyView.furnishingType">
+                    <label *ngFor="let ftype of furnishTypes" class="btn btn-outline-primary mr-2" [btnRadio]="ftype"
+                      tabindex="0" role="button" name="SellRent">{{ftype}}</label>
                   </div>
                   <div class="error-block" *ngIf="FType.invalid && nextClicked">
                     Please select furnishing
@@ -54,8 +55,7 @@
                 <div class="row mb-3">
                   <label class="col-form-label">in Building/Society/Project</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" formControlName="Name" 
-                     [(ngModel)]="propertyView.Name">
+                    <input type="text" class="form-control" formControlName="Name" [(ngModel)]="propertyView.name">
                   </div>
                   <div class="error-block" *ngIf="Name.invalid && (nextClicked || Name.touched)">
                     Please select building, society, project name
@@ -64,7 +64,7 @@
                 <div class="row mb-3">
                   <label class="col-form-label">City</label>
                   <div class="col-sm-10">
-                    <select class="form-control" formControlName="City" [(ngModel)]="propertyView.City">
+                    <select class="form-control" formControlName="City" [(ngModel)]="propertyView.city">
                       <option value="">--Select City--</option>
                       <option *ngFor="let city of cityList" value={{city.id}}>{{city.name}}</option>
                     </select>
@@ -74,75 +74,77 @@
                   </div>
                 </div>
                 <div class="form-group row mb-1">
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(1, BasicInfo.valid)">Next</button>
+                  <button type="button" class="btn btn-primary btn-block"
+                    (click)="selectTab(1, BasicInfo.valid)">Next</button>
                 </div>
               </tab>
-    
+
               <tab heading="Pricing and Area" formGroupName="PriceInfo">
                 <div class="row">
                   <label *ngIf="SellRent.value===1" class="col-form-label">Price (in USD)</label>
                   <label *ngIf="SellRent.value===2" class="col-form-label">Rent (in USD)</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" formControlName="Price" [(ngModel)]="propertyView.Price">
+                    <input type="text" class="form-control" formControlName="Price" [(ngModel)]="propertyView.price">
                   </div>
                   <div class="error-block" *ngIf="Price.invalid && (nextClicked || Price.touched)">
                     Please select <span *ngIf="SellRent.value===1; else ShowRent">price</span>
                     <ng-template #ShowRent>rent</ng-template>
                   </div>
                 </div>
-                
+
                 <div class="row">
                   <label class="col-form-label">Security (in USD)</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" formControlName="Security">
                   </div>
                 </div>
-                
+
                 <div class="row">
                   <label class="col-form-label">Maintenance (in USD)</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" formControlName="Maintenance">
                   </div>
                 </div>
-    
+
                 <div class="row">
                   <label class="col-form-label">Built Area (in Sqr Feet)</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" formControlName="BuiltArea" [(ngModel)]="propertyView.BuiltArea">
+                    <input type="text" class="form-control" formControlName="BuiltArea"
+                      [(ngModel)]="propertyView.builtArea">
                   </div>
                   <div class="error-block" *ngIf="BuiltArea.invalid && nextClicked">
                     Please select built area
                   </div>
                 </div>
-    
+
                 <div class="row">
                   <label class="col-form-label">Carpet Area (in Sqr Feet)</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" formControlName="CarpetArea">
                   </div>
                 </div>
-    
+
                 <div class="row mb-1">
                   <button type="button" class="btn btn-primary btn-block"
-                  (click)="selectTab(2, PriceInfo.valid)">Next</button>
+                    (click)="selectTab(2, PriceInfo.valid)">Next</button>
                 </div>
                 <div class="row">
                   <button type="button" class="btn btn-primary btn-block"
-                  (click)="selectTab(0, PriceInfo.valid)">Back</button>
+                    (click)="selectTab(0, PriceInfo.valid)">Back</button>
                 </div>
               </tab>
-    
+
               <tab heading="Address" formGroupName="AddressInfo">
                 <div class="form-group col-12">
                   <label>Floor</label>
                   <input type="text" class="form-control" formControlName="FloorNo">
                 </div>
-    
+
                 <div class="form-group col-12">
                   <label>Total Floor</label>
                   <input type="text" class="form-control" formControlName="TotalFloor">
                 </div>
-    
+
                 <div class="form-group col-12">
                   <label>Address</label>
                   <input type="text" class="form-control" formControlName="Address">
@@ -150,104 +152,96 @@
                     Please select address
                   </div>
                 </div>
-    
+
                 <div class="form-group col-12">
                   <label>Landmark</label>
                   <input type="text" class="form-control" formControlName="LandMark">
                 </div>
-    
+
                 <div class="row mb-1">
                   <button type="button" class="btn btn-primary btn-block"
-                  (click)="selectTab(3, AddressInfo.valid)">Next</button>
+                    (click)="selectTab(3, AddressInfo.valid)">Next</button>
                 </div>
                 <div class="row">
                   <button type="button" class="btn btn-primary btn-block"
-                  (click)="selectTab(1, AddressInfo.valid)">Back</button>
+                    (click)="selectTab(1, AddressInfo.valid)">Back</button>
                 </div>
               </tab>
-              
+
               <tab heading="Other Details" formGroupName="OtherInfo">
                 <div class="form-group col-12">
-                  <label>Ready to Move</label><br/>
+                  <label>Ready to Move</label><br />
                   <div class="btn-group" btnRadioGroup formControlName="RTM">
-                    <label class="btn btn-outline-primary mr-2"
-                    btnRadio=1 tabindex="0" role="button" name="RTM">Yes</label>
-                    <label class="btn btn-outline-primary"
-                    btnRadio=2  tabidivndex="0" role="button" name="RTM">No</label>
+                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button"
+                      name="RTM">Yes</label>
+                    <label class="btn btn-outline-primary" btnRadio=2 tabidivndex="0" role="button"
+                      name="RTM">No</label>
                   </div>
                   <div class="error-block" *ngIf="RTM.invalid && nextClicked">
                     Please select ready to move
                   </div>
                 </div>
-    
+
                 <div class="form-group col-3">
                   <label>Possession/Avaialble From</label>
-                  <input type="text"
-                          placeholder="Datepicker"
-                          class="form-control"
-                          formControlName="PossessionOn"
-                          bsDatepicker
-                          [bsConfig]="{isAnimated: true, containerClass:'theme-dark-blue', dateInputFormat:'YYYY-MM-DD'}">
+                  <input type="text" placeholder="Datepicker" class="form-control" formControlName="PossessionOn"
+                    bsDatepicker
+                    [bsConfig]="{isAnimated: true, containerClass:'theme-dark-blue', dateInputFormat:'YYYY-MM-DD'}">
                 </div>
-    
+
                 <div class="form-group col-12">
                   <label>Age of Property</label>
                   <input type="text" class="form-control" formControlName="AOP">
                 </div>
-    
+
                 <div class="form-group col-12">
-                  <label>Gated Community</label><br/>
-                  <div class="btn-group"
-                  btnRadioGroup
-                  formControlName="Gated">
-                    <label class="btn btn-outline-primary mr-2"
-                    btnRadio=1 tabindex="0" role="button" name="Gated">Yes</label>
-                    <label class="btn btn-outline-primary"
-                    btnRadio=2  tabindex="0" role="button" name="Gated">No</label>
+                  <label>Gated Community</label><br />
+                  <div class="btn-group" btnRadioGroup formControlName="Gated">
+                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button"
+                      name="Gated">Yes</label>
+                    <label class="btn btn-outline-primary" btnRadio=2 tabindex="0" role="button" name="Gated">No</label>
                   </div>
                 </div>
-    
+
                 <div class="form-group col-12">
-                  <label>Main Entrance</label><br/>
-                  <div class="btn-group"
-                  btnRadioGroup
-                  formControlName="MainEntrance">
-                    <label class="btn btn-outline-primary mr-2"
-                    btnRadio=1 tabindex="0" role="button" name="Entrance">East</label>
-                    <label class="btn btn-outline-primary"
-                    btnRadio=2  tabindex="0" role="button" name="Entrance">West</label>
-                    <label class="btn btn-outline-primary"
-                    btnRadio=3  tabindex="0" role="button" name="Entrance">South</label>
-                    <label class="btn btn-outline-primary"
-                    btnRadio=4  tabindex="0" role="button" name="Entrance">North</label>
+                  <label>Main Entrance</label><br />
+                  <div class="btn-group" btnRadioGroup formControlName="MainEntrance">
+                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button"
+                      name="Entrance">East</label>
+                    <label class="btn btn-outline-primary" btnRadio=2 tabindex="0" role="button"
+                      name="Entrance">West</label>
+                    <label class="btn btn-outline-primary" btnRadio=3 tabindex="0" role="button"
+                      name="Entrance">South</label>
+                    <label class="btn btn-outline-primary" btnRadio=4 tabindex="0" role="button"
+                      name="Entrance">North</label>
                   </div>
                 </div>
-    
+
                 <div class="form-group col-12">
                   <p>Description</p>
                   <textarea type="text" class="form-control" formControlName="Description" rows="6"></textarea>
                 </div>
-    
+
                 <div class="row mb-1 mt-1">
                   <button type="button" class="btn btn-primary btn-block"
-                  (click)="selectTab(4, OtherInfo.valid)">Next</button>
+                    (click)="selectTab(4, OtherInfo.valid)">Next</button>
                 </div>
                 <div class="row">
                   <button type="button" class="btn btn-primary btn-block"
-                  (click)="selectTab(2, OtherInfo.valid)">Back</button>
+                    (click)="selectTab(2, OtherInfo.valid)">Back</button>
                 </div>
               </tab>
-    
+
               <tab heading="Photos">
                 <div class="form-group col-12">
                   <div class="photo-control">
-                      <button class="mt-5" type="button">Upload</button> <br>
-                      This is under construction
+                    <button class="mt-5" type="button">Upload</button> <br>
+                    This is under construction
                   </div>
                 </div>
                 <div class="row mb-1">
                   <button button type="button" class="btn btn-primary btn-block"
-                  (click)="selectTab(3, true)">Back</button>
+                    (click)="selectTab(3, true)">Back</button>
                 </div>
                 <div class="row mb-1">
                   <button button type="submit" class="btn btn-primary btn-block">Save</button>
@@ -260,7 +254,7 @@
           </div>
         </form>
       </div>
-    </div>    
+    </div>
   </div>
   <div class="col-4">
     <div class="card-header">
@@ -271,4 +265,3 @@
     </div>
   </div>
 </div>
-
