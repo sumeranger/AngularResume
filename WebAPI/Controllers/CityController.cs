@@ -25,6 +25,7 @@ namespace WebAPI.Controllers
             this.uow = uow;
         }
 
+        //city/cities
         [AllowAnonymous]
         [HttpGet("cities")]
         public async Task<IActionResult> GetCities()
