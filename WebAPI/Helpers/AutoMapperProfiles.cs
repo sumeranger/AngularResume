@@ -23,6 +23,9 @@ namespace WebAPI.Helpers
             .ForMember(d => d.City, opt => opt.MapFrom(src => src.City.Name))
             .ForMember(d => d.Country, opt => opt.MapFrom(src => src.City.Country))
             .ReverseMap();
+
+            CreateMap<PropertyType, KeyValuePairDto>().ReverseMap();
+            CreateMap<FurnishingType, KeyValuePairDto>().ReverseMap();
         }
     }
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IPropertyBase } from 'src/app/model/IPropertybase';
+import { ipropertybase } from 'src/app/model/ipropertybase';
 import { HousingService } from 'src/app/services/housing.service';
 
 @Component({
@@ -8,45 +8,45 @@ import { HousingService } from 'src/app/services/housing.service';
   templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.css']
 })
-export class PropertyListComponent implements OnInit{
+export class PropertyListComponent implements OnInit {
 
   SellRent = 1;
-  properties: Array<IPropertyBase> = [];
+  properties: Array<ipropertybase> = [];
   city = '';
   searchCity = '';
   sortByParam = '';
   sortDirection = 'asc';
 
-  constructor(private route : ActivatedRoute, private housingServices:HousingService){}
+  constructor(private route: ActivatedRoute, private housingServices: HousingService) { }
 
-  ngOnInit(): void{
-    if(this.route.snapshot.url.toString()){
+  ngOnInit(): void {
+    if (this.route.snapshot.url.toString()) {
       this.SellRent = 2;
     }
 
     this.housingServices.getAllProperties(this.SellRent).subscribe(
-      data=>{
-        this.properties=data;
-      }, error=>{
+      data => {
+        this.properties = data;
+      }, error => {
         console.log("httpserror");
         console.log(error);
       }
     );
   }
 
-  OnCityFilter(){
+  OnCityFilter() {
     this.searchCity = this.city;
   }
 
-  OnCityClearFilter(){
+  OnCityClearFilter() {
     this.searchCity = '';
     this.city = '';
   }
 
-  OnSortDirection(){
-    if(this.sortDirection === 'desc'){
+  OnSortDirection() {
+    if (this.sortDirection === 'desc') {
       this.sortDirection = 'asc';
-    }else{
+    } else {
       this.sortDirection = 'desc';
     }
   }

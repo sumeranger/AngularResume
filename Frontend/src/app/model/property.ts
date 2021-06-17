@@ -1,6 +1,6 @@
-import { IPropertyBase } from "./IPropertybase";
+import { ipropertybase } from "./ipropertybase";
 
-export class Property implements IPropertyBase {
+export class Property implements ipropertybase {
   id: number;
   sellRent: number;
   name: string;
